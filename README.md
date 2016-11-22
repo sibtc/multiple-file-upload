@@ -1,11 +1,11 @@
-# Simple Ajax Crud
+# Multiple File Upload
 
-Example used in the blog post [How to Implement CRUD Using Ajax and Json](https://simpleisbetterthancomplex.com/tutorial/2016/11/15/how-to-implement-a-crud-using-ajax-and-json.html)
+Example used in the blog post [Django Multiple Files Upload Using Ajax](https://simpleisbetterthancomplex.com/tutorial/2016/11/22/django-multiple-file-upload-using-ajax.html)
 
 ## Running Locally
 
 ```bash
-git clone https://github.com/sibtc/simple-ajax-crud.git
+git clone https://github.com/sibtc/multiple-file-upload.git
 ```
 
 ```bash
