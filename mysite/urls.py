@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
-    url(r'^photos/', include('mysite.photos.urls', namespace='photos')),
+    url(r'^photos/', include(( 'mysite.photos.urls', "photos"), namespace='photos')),
 ]
 
 if settings.DEBUG:
