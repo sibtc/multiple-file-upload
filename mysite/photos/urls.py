@@ -2,6 +2,8 @@ from django.conf.urls import url
 
 from . import views
 
+app_name = 'photos'
+
 urlpatterns = [
     url(r'^clear/$', views.clear_database, name='clear_database'),
     url(r'^basic-upload/$', views.BasicUploadView.as_view(), name='basic_upload'),
