@@ -5,12 +5,19 @@ from django.http import JsonResponse
 from django.views import View
 
 from .forms import PhotoForm
-from .models import Photo
+from .models import PhotoModel
+from .serializers import PhotoSerializer
+from rest_framework import viewsets
+
+
+class PhotoViewSet(viewsets.ModelViewSet):
+    queryset = PhotoModel.objects.all()
+    serializer_class = PhotoSerializer
 
 
 class BasicUploadView(View):
     def get(self, request):
-        photos_list = Photo.objects.all()
+        photos_list = PhotoModel.objects.all()
         return render(self.request, 'photos/basic_upload/index.html', {'photos': photos_list})
 
     def post(self, request):
@@ -25,7 +32,7 @@ class BasicUploadView(View):
 
 class ProgressBarUploadView(View):
     def get(self, request):
-        photos_list = Photo.objects.all()
+        photos_list = PhotoModel.objects.all()
         return render(self.request, 'photos/progress_bar_upload/index.html', {'photos': photos_list})
 
     def post(self, request):
@@ -41,7 +48,7 @@ class ProgressBarUploadView(View):
 
 class DragAndDropUploadView(View):
     def get(self, request):
-        photos_list = Photo.objects.all()
+        photos_list = PhotoModel.objects.all()
         return render(self.request, 'photos/drag_and_drop_upload/index.html', {'photos': photos_list})
 
     def post(self, request):
@@ -55,7 +62,7 @@ class DragAndDropUploadView(View):
 
 
 def clear_database(request):
-    for photo in Photo.objects.all():
+    for photo in PhotoModel.objects.all():
         photo.file.delete()
         photo.delete()
     return redirect(request.POST.get('next'))
