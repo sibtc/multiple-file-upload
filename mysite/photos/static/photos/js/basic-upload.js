@@ -1,5 +1,17 @@
-$(function () {
+$(document).ready( function () {
+  //https://django-rest-framework-datatables.readthedocs.io/en/latest/tutorial.html#a-more-complex-and-detailed-example
+  $('#gallery').DataTable({
+  "serverSide": true,
+  "ajax": "/photos/api/photos/?format=datatables",
+  "columns": [
+      {"data": "file", "render": function(data) { return `<img src="${data}" style="height:100px;"/>`;}},
+      {"data": "file", "render": function(data) { return `<a href="${data}" style="height:100px;">${data.split('/').pop()}</a>`;}},
+      {"data": "uploaded_at"},
+  ]
+  });
+});
 
+$(function () {
   $(".js-upload-photos").click(function () {
     $("#fileupload").click();
   });
@@ -7,12 +19,7 @@ $(function () {
   $("#fileupload").fileupload({
     dataType: 'json',
     done: function (e, data) {
-      if (data.result.is_valid) {
-        $("#gallery tbody").prepend(
-          "<tr><td><a href='" + data.result.url + "'>" + data.result.name + "</a></td></tr>"
-        )
-      }
+      $('#gallery').DataTable().ajax.reload();
     }
   });
-
 });

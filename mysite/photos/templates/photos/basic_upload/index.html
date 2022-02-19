@@ -10,8 +10,21 @@
   <script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
   <script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
 
+  {# DATATABLES #}
+  <script charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script charset="utf8" src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  
+  
   {# PHOTOS PAGE SCRIPTS #}
   <script src="{% static 'photos/js/basic-upload.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+
+  {# DATATABLES #}
+  <link rel="stylesheet" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css"/>
+  <link rel="stylesheet" src="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+
 {% endblock %}
 
 {% block photos_content %}
@@ -25,18 +38,13 @@
            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
   </div>
 
-  <table id="gallery" class="table table-bordered">
+  <table id="gallery" class="table table-striped table-bordered" style="width:100%">
     <thead>
       <tr>
         <th>Photo</th>
+        <th>File Name</th>
+        <th>Uploaded at</th>
       </tr>
     </thead>
-    <tbody>
-      {% for photo in photos %}
-        <tr>
-          <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
-        </tr>
-      {% endfor %}
-    </tbody>
   </table>
 {% endblock %}
