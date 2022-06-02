@@ -22,7 +22,7 @@
 
   <input id="fileupload" type="file" name="file" multiple
          style="display: none;"
-         data-url="{% url 'photos:basic_upload' %}"
+         data-url="{% url 'basic_upload' %}"
          data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
   <table id="gallery" class="table table-bordered">
