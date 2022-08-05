@@ -1,0 +1,82 @@
+{% extends 'photos/base.html' %}
+
+{% load static %}
+
+{% block title %}Directory Upload with Progress Bar{% endblock %}
+
+{% block javascript %}
+{# JQUERY FILE UPLOAD SCRIPTS #}
+<script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+
+{# PHOTOSPHOTOS PAGE SCRIPTS #}
+<script src="{% static 'photos/js/multiple_file_upload_progress_bar.js' %}"></script>
+{% endblock %}
+
+{% block photos_content %}
+<form style="margin-bottom: 20px;" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <h6>Upload Folder</h6>
+        {{ file_form.file }}
+        <label for="actual-btn" class="btn btn-primary">Choose
+            Folder</label>
+        <span id="file-chosen">No Files Selected</span>
+    </div>
+    <!-- Needed for the below <script> tag to pass the directories json -->
+    {{ form.directories}}
+    <script>
+      // Custom File upload button CSS:
+      const actualBtn = document.getElementById('actual-btn');
+      const fileChosen = document.getElementById('file-chosen');
+      actualBtn.addEventListener('change', function(){
+        fileChosen.textContent = this.files.length + " Files Selected"
+      })
+    </script>
+    <script>
+      // Multiple file upload handler:
+      files = document.querySelector("#actual-btn").files;
+       document.querySelector("#actual-btn").addEventListener("change", function() {
+          files = document.querySelector("#actual-btn").files;
+          var directories = {}
+          for (var file of files) {
+            file.webkitRelativePath
+            directories[file.name] = file.webkitRelativePath
+          }
+          directories = JSON.stringify(directories);
+          document.querySelector("#directories").value = directories
+       });
+    </script>
+</form>
+
+<table id="gallery" class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for file in files %}
+    <tr>
+        <td><a href="{{ photo.file.url }}">{{ file.file.name }}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Uploading...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

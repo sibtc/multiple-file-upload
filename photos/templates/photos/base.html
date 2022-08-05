@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <form method="post" action="{% url 'photos:clear_database' %}">
+  <form method="post" action="{% url 'clear_database' %}">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ request.path }}">
     <button type="submit" class="btn btn-danger pull-right">
@@ -19,14 +19,17 @@
           <h3 class="panel-title">Examples</h3>
         </div>
         <div class="list-group">
-          <a href="{% url 'photos:basic_upload' %}" class="list-group-item{% if request.path == '/photos/basic-upload/' %} active{% endif %}">
+          <a href="{% url 'basic_upload' %}" class="list-group-item{% if request.path == '/photos/basic-upload/' %} active{% endif %}">
             Basic Upload
           </a>
-          <a href="{% url 'photos:progress_bar_upload' %}" class="list-group-item{% if request.path == '/photos/progress-bar-upload/' %} active{% endif %}">
+          <a href="{% url 'progress_bar_upload' %}" class="list-group-item{% if request.path == '/photos/progress-bar-upload/' %} active{% endif %}">
             Progress Bar Upload
           </a>
-          <a href="{% url 'photos:drag_and_drop_upload' %}" class="list-group-item{% if request.path == '/photos/drag-and-drop-upload/' %} active{% endif %}">
+          <a href="{% url 'drag_and_drop_upload' %}" class="list-group-item{% if request.path == '/photos/drag-and-drop-upload/' %} active{% endif %}">
             Drag and Drop Upload
+          </a>
+          <a href="{% url 'directory_upload_progress_bar' %}" class="list-group-item{% if request.path == '/photos/directory-upload-progress-bar/' %} active{% endif %}">
+            Directory Upload with Progress Bar
           </a>
         </div>
       </div>
